@@ -5,7 +5,7 @@ function Card (props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwn = props.card.owner._id === currentUser._id;
-  const cardDeleteButtonClassName = (`place__delete-button ${isOwn ? 'place__delete-button_visible' : 'place__delete-button_hidden'}`);
+  const cardDeleteButtonClassName = (`place__delete ${isOwn ? 'place__delete_visible' : 'place__delete_hidden'}`);
   const isLiked = props.card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = `place__like ${isLiked ? 'place__like_active' : ''}`;
 
@@ -15,6 +15,10 @@ function Card (props) {
 
   function handleLikeClick() {
     props.onCardLike(props.card);
+  }
+
+  function handleDeleteClick() {
+    props.onCardDelete(props.card)
   }
 
   
@@ -28,7 +32,7 @@ function Card (props) {
           <p className="place__like-counter">{props.card.likes.length}</p>
         </div>
       </div>
-      <button type="button" className="place__delete" aria-label="Удалить фото"></button>
+      <button type="button" className={cardDeleteButtonClassName} aria-label="Удалить фото" onClick={handleDeleteClick}></button>
     </article>
   );
 }

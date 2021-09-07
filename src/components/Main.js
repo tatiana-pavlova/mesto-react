@@ -27,6 +27,12 @@ function Main (props) {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
   }
+
+  function handleCardDelete(card) {
+    api.deleteCard (card._id).then((newCard) => {
+      setCards((state) => state.filter((c) => c._id === card._id ? newCard : c));
+    })
+  }
   
 
   
@@ -49,7 +55,8 @@ function Main (props) {
 
       <section className="places">
         {cards.map((card) => {
-          return (<Card key={card._id} card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike} />)
+          return (<Card key={card._id} card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike} 
+                        onCardDelete={handleCardDelete} />)
         })}
       </section>
     </main>
