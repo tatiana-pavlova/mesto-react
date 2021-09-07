@@ -1,26 +1,23 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import Card from "./Card";
 
 function Main (props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
+
+  const currentUser = React.useContext(CurrentUserContext);
   
   
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([resUser, resCards]) => {
-        setUserName(resUser.name);
-        setUserDescription(resUser.about);
-        setUserAvatar(resUser.avatar);
+    api.getInitialCards()
+      .then((resCards) => {
         setCards(resCards);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [])
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  })
 
   
   return (
@@ -28,13 +25,13 @@ function Main (props) {
       <section className="profile">
         <div className="profile__user">
           <div className="profile__avatar-overlay" onClick={props.onEditAvatar}><div className="profile__avatar" 
-                          style={{ backgroundImage: `url(${userAvatar})`, backgroundSize: "cover" }} /></div>
+                          style={{ backgroundImage: `url(${currentUser.avatar})`, backgroundSize: "cover" }} /></div>
           <div className="profile__info">
             <div className="profile__name-info">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button type="button" className="profile__edit" onClick={props.onEditProfile} aria-label="Редактировать профайл"></button>
             </div>
-            <p className="profile__job-info">{userDescription}</p>
+            <p className="profile__job-info">{currentUser.about}</p>
           </div>
         </div>
         <button type="button" className="profile__add" onClick={props.onAddPlace} aria-label="Добавить фото"></button>
