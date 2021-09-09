@@ -3,6 +3,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -23,7 +24,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  })
+  }, [])
 
 
   const handleEditProfileClick = () => {
@@ -49,6 +50,17 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleUpdateUser(data) {
+    api.editProfileInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -60,21 +72,7 @@ function App() {
             <Footer />
           </div>
 
-          <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
-                        buttonTitle="Сохранить"  children={
-            <>
-              <div className="popup__input-field">
-                <input id="name-input" type="text" className="popup__input popup__input_edit_name" defaultValue="" name="name"
-                      placeholder="Имя" required minLength="2" maxLength="40"/>
-                <span className="name-input-error"></span>
-              </div>
-              <div className="popup__input-field">
-                <input id="job-input" type="text" className="popup__input popup__input_edit_job" defaultValue="" name="job" 
-                      placeholder="Вид деятельности" required minLength="2" maxLength="200"/>
-                <span className="job-input-error"></span>
-              </div>
-            </>
-          } />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
           <PopupWithForm name="new-card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} 
                         buttonTitle="Создать" children={

@@ -17,7 +17,7 @@ function Main (props) {
       .catch((err) => {
         console.log(err);
       });
-  })
+  }, [])
 
   
   function handleCardLike(card) {
