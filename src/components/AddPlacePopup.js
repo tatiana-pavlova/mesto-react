@@ -27,20 +27,20 @@ function AddPlacePopup (props) {
 
   return (
     <PopupWithForm name="new-card" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} 
-                        buttonTitle="Создать" children={
-            <>
-              <div className="popup__input-field">
-                <input id="place-input" type="text" value={cardName} onChange={handleCardNameChange} placeholder="Название" 
-                       className="popup__input popup__input_place-name" name="placeName" required minLength="2" maxLength="30"/>
-                <span className="place-input-error"></span>
-              </div>
-              <div className="popup__input-field">
-                <input id="link-input" type="url" value={cardUrl} onChange={handleCardUrlChange} placeholder="Ссылка на картинку"
-                       className="popup__input popup__input_place-link" name="placeLink" required/>
-                <span className="link-input-error"></span>
-              </div>
-            </>
-          } />
+                        buttonTitle="Создать">
+      <>
+        <div className="popup__input-field">
+          <input id="place-input" type="text" value={cardName} onChange={handleCardNameChange} placeholder="Название" 
+                  className="popup__input popup__input_place-name" name="placeName" required minLength="2" maxLength="30"/>
+          <span className="place-input-error"></span>
+        </div>
+        <div className="popup__input-field">
+          <input id="link-input" type="url" value={cardUrl} onChange={handleCardUrlChange} placeholder="Ссылка на картинку"
+                  className="popup__input popup__input_place-link" name="placeLink" required/>
+          <span className="link-input-error"></span>
+        </div>
+      </>
+    </PopupWithForm>
   )
 }
 

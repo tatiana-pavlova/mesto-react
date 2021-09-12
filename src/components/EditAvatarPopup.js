@@ -15,13 +15,13 @@ function EditAvatarPopup (props) {
 
   return (
     <PopupWithForm name="edit-avatar" title="Обновить аватар" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}
-                        buttonTitle="Сохранить" children={
-            <div className="popup__input-field">
-              <input id="avatar-input" type="url" ref={avatarRef} className="popup__input popup__input_avatar-link" placeholder="Добавьте ссылку на аватар" 
-                      name="avatar" required/>
-              <span className="avatar-input-error"></span>
-            </div>
-          } />
+                   buttonTitle="Сохранить">
+      <div className="popup__input-field">
+        <input id="avatar-input" type="url" ref={avatarRef} className="popup__input popup__input_avatar-link" placeholder="Добавьте ссылку на аватар" 
+                name="avatar" required/>
+        <span className="avatar-input-error"></span>
+      </div>
+    </PopupWithForm>
   );
 }
 
