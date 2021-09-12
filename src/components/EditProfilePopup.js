@@ -19,14 +19,19 @@ function EditProfilePopup (props) {
   }
 
   function handleDescriptionChange (e) {
-    setDescription(e.target.value)
+    setDescription(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     
+    //удалить log
+    console.log(name);
+    console.log(description);
+    console.log(`currentUser: ${currentUser.name}`)
+    
     props.onUpdateUser({
-      name,
+      name: name,
       about: description,
     });
   }
