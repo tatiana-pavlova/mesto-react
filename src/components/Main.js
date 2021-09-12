@@ -6,7 +6,7 @@ function Main (props) {
   
 
   const currentUser = React.useContext(CurrentUserContext);
-  
+
   
   return (
     <main>

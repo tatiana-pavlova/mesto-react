@@ -16,7 +16,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({name:'', about:'', avatar:''})
+  const [currentUser, setCurrentUser] = React.useState({name:'', about:'', avatar:'', _id: ''})
   const [cards, setCards] = React.useState([]);
 
   const handleEditProfileClick = () => {
@@ -54,7 +54,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, [])
+  }, [cards])
 
   
   function handleCardLike(card) {
@@ -71,9 +71,6 @@ function App() {
     })
   }
   
-
-  
-
   function closeAllPopups () {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -82,10 +79,8 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    console.log(`data: ${data.name} ${data.about}`)
     api.editProfileInfo(data)
       .then((res) => {
-        console.log(`res: ${res.name} ${res.about}`);
         setCurrentUser(res);
         closeAllPopups();
       })
